@@ -42,6 +42,5 @@ public class EmployeeDetails extends BaseEntity<Long> {
 
     @Nullable
     @OneToOne(fetch = FetchType.LAZY)
-    @MapsId
     private User user;
 }

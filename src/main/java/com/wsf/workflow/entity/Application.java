@@ -20,12 +20,10 @@ public class Application extends BaseEntity<Long> {
 
     @Nullable
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId
     private StageActor stageActor;
 
     @Nullable
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId
     private UserInformation applicant;
 
     @OrderBy("updatedAt DESC")

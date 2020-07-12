@@ -24,11 +24,9 @@ public class StageActor extends BaseEntity<Long> {
 
     @Nullable
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId
     private Stages stage;
 
     @Nullable
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId
     private EmployeeDetails employeeDetails; //employee
 }

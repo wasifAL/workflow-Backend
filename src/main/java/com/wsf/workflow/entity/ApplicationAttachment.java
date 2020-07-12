@@ -26,6 +26,5 @@ public class ApplicationAttachment extends BaseEntity<Long> {
 
     @Nullable
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId
     private Application application;
 }

@@ -20,10 +20,8 @@ public class Stages extends BaseEntity<Long> {
     private String description;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @MapsId
     private Stages nextStage;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @MapsId
     private Stages prevStage;
 }

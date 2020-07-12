@@ -18,15 +18,12 @@ public class StageAction extends BaseEntity<Long> {
     private String comment;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId
     private StageActor currentStageActor;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId
     private StageActor nextStageActor;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId
     private Application application;
 
 }
