@@ -1,4 +1,4 @@
-package com.wsf.workflow.utils;
+package com.wsf.workflow.dto;
 
 import java.util.TreeMap;
 
