@@ -2,6 +2,7 @@ package com.wsf.workflow.entity;
 
 import com.wsf.workflow.entity.common.BaseEntity;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.lang.Nullable;
@@ -17,6 +18,7 @@ import javax.validation.constraints.NotEmpty;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 @Table(name = "users")
 public class User extends BaseEntity<Long> {
 

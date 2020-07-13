@@ -2,6 +2,7 @@ package com.wsf.workflow.entity;
 
 import com.wsf.workflow.entity.common.BaseEntity;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +15,7 @@ import javax.persistence.MapsId;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 public class StageAction extends BaseEntity<Long> {
     private String comment;
 

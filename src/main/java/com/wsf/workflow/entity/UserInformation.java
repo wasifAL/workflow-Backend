@@ -2,6 +2,7 @@ package com.wsf.workflow.entity;
 
 import com.wsf.workflow.entity.common.BaseEntity;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.lang.Nullable;
@@ -12,6 +13,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 public class UserInformation extends BaseEntity<Long> {
 
     @Nullable
