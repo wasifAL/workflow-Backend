@@ -42,6 +42,11 @@ public class StagesService {
     }
 
 
+    @Transactional(readOnly = true)
+    public StagesDTO getStageByID(Long id) {
+        return mapToDto(stagesRepository.getOne(id));
+    }
+
     public Stages mapToEntity(StagesDTO stagesDTO) {
         Stages stage = new Stages();
         stage.setName(stagesDTO.getName());
