@@ -1,4 +1,4 @@
-package com.wsf.workflow.dto;
+package com.wsf.workflow.dto.replica;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginDTO {
+public class UserDTO {
     private String username;
     private String password;
+    private String email;
+    private String role;
 }

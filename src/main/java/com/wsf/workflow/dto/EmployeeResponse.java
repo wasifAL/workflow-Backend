@@ -7,12 +7,18 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegistrationDTO {
-
+public class EmployeeResponse {
     private String username;
     private String password;
     private String email;
+    private Long empID; // employeeDetails entity id
     private String fullName;
     private String address;
     private String mobile;
+    private String designation;
+    private byte[] picture;
+    private String ppMimeType;
+    private byte[] signature;
+    private String signatureMimeType;
+    private String role = "EMPLOYEE";
 }

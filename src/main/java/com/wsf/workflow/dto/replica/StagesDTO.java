@@ -1,6 +1,5 @@
-package com.wsf.workflow.dto;
+package com.wsf.workflow.dto.replica;
 
-import com.wsf.workflow.entity.Stages;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

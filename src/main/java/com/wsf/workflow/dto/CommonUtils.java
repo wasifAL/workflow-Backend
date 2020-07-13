@@ -2,7 +2,7 @@ package com.wsf.workflow.dto;
 
 import java.util.TreeMap;
 
-public class Commons {
+public class CommonUtils {
     public static final TreeMap<String, String> roles = new TreeMap() {{
         put("USER", "User");
         put("EMPLOYEE", "Employee");
