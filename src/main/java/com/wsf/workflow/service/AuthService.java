@@ -1,25 +1,28 @@
 package com.wsf.workflow.service;
 
-import com.wsf.workflow.dto.AuthDTO;
-import com.wsf.workflow.dto.LoginDTO;
-import com.wsf.workflow.dto.RegistrationDTO;
+import com.wsf.workflow.dto.AuthResponse;
+import com.wsf.workflow.dto.LoginResponse;
+import com.wsf.workflow.dto.RegistrationResponse;
 import com.wsf.workflow.entity.User;
 import com.wsf.workflow.entity.UserInformation;
 import com.wsf.workflow.exception.CustomException;
 import com.wsf.workflow.repository.UserInformationRepository;
 import com.wsf.workflow.repository.UserRepository;
-import com.wsf.workflow.dto.Commons;
+import com.wsf.workflow.dto.CommonUtils;
 import com.wsf.workflow.security.JwtProvider;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Collection;
 
 @Service
 @AllArgsConstructor
@@ -33,18 +36,18 @@ public class AuthService {
     private final JwtProvider jwtProvider;
 
     @Transactional
-    public void register(RegistrationDTO registrationDTO) {
+    public void register(RegistrationResponse registrationResponse) {
         User user = new User();
-        user.setEmail(registrationDTO.getEmail());
-        user.setUsername(registrationDTO.getUsername());
-        user.setPassword(passwordEncoder.encode(registrationDTO.getPassword()));
+        user.setEmail(registrationResponse.getEmail());
+        user.setUsername(registrationResponse.getUsername());
+        user.setPassword(passwordEncoder.encode(registrationResponse.getPassword()));
         user.setOnCreate(null);
-        user.setRole(Commons.roles.get("USER"));
+        user.setRole("USER");
 
         UserInformation userInformation = new UserInformation();
-        userInformation.setAddress(registrationDTO.getAddress());
-        userInformation.setFullName(registrationDTO.getFullName());
-        userInformation.setMobile(registrationDTO.getMobile());
+        userInformation.setAddress(registrationResponse.getAddress());
+        userInformation.setFullName(registrationResponse.getFullName());
+        userInformation.setMobile(registrationResponse.getMobile());
 
         try {
             userRepository.save(user);
@@ -59,12 +62,21 @@ public class AuthService {
         }
     }
 
-    public AuthDTO login(LoginDTO loginDTO) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), loginDTO.getPassword()));
+    public AuthResponse login(LoginResponse loginResponse) {
+        Authentication authentication =
+                authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginResponse.getUsername(),
+                        loginResponse.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtProvider.generateToken(authentication);
-//        String role = getRoleFromAuthentication(authentication);
-        return new AuthDTO(token, loginDTO.getUsername());
+        String role = getRoleFromAuthentication(authentication.getAuthorities());
+        return new AuthResponse(token, loginResponse.getUsername(),role);
     }
-
+    private String getRoleFromAuthentication(Collection<? extends GrantedAuthority> grantedAuthorities) {
+        StringBuilder role = new StringBuilder("");
+        for (GrantedAuthority ga : grantedAuthorities) {
+            role.append(ga.getAuthority());
+            if (role != null) break;
+        }
+        return role.toString();
+    }
 }

@@ -1,8 +1,8 @@
 package com.wsf.workflow.controller;
 
-import com.wsf.workflow.dto.AuthDTO;
-import com.wsf.workflow.dto.LoginDTO;
-import com.wsf.workflow.dto.RegistrationDTO;
+import com.wsf.workflow.dto.AuthResponse;
+import com.wsf.workflow.dto.LoginResponse;
+import com.wsf.workflow.dto.RegistrationResponse;
 import com.wsf.workflow.service.AuthService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,13 +20,13 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody RegistrationDTO registrationDTO) {
-        authService.register(registrationDTO);
+    public ResponseEntity<String> register(@RequestBody RegistrationResponse registrationResponse) {
+        authService.register(registrationResponse);
         return new ResponseEntity<>("User registration Successful", HttpStatus.OK);
     }
 
     @PostMapping("/login")
-    public AuthDTO login(@RequestBody LoginDTO loginDTO){
-        return authService.login(loginDTO);
+    public AuthResponse login(@RequestBody LoginResponse loginResponse){
+        return authService.login(loginResponse);
     }
 }
