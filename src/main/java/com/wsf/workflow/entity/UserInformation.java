@@ -13,7 +13,6 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Builder
 public class UserInformation extends BaseEntity<Long> {
 
     @Nullable

@@ -16,7 +16,6 @@ import javax.persistence.MapsId;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Builder
 public class StageActor extends BaseEntity<Long> {
     @Nullable
     private String name;

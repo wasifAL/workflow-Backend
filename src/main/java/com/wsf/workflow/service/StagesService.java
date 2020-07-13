@@ -43,12 +43,12 @@ public class StagesService {
 
 
     public Stages mapToEntity(StagesDTO stagesDTO) {
-        return Stages.builder()
-                .name(stagesDTO.getName())
-                .description(stagesDTO.getDescription())
-                .nextStage(null)
-                .prevStage(null)
-                .build();
+        Stages stage = new Stages();
+        stage.setName(stagesDTO.getName());
+        stage.setDescription(stagesDTO.getDescription());
+        stage.setNextStage(null);
+        stage.setPrevStage(null);
+        return stage;
     }
 
     public StagesDTO mapToDto(Stages stages) {

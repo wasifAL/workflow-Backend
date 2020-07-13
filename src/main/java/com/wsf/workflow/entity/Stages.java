@@ -15,7 +15,6 @@ import javax.persistence.OneToOne;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Builder
 public class Stages extends BaseEntity<Long> {
     private String name;
 

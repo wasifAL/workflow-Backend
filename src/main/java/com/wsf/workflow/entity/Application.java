@@ -14,7 +14,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Builder
 public class Application extends BaseEntity<Long> {
 
     @Nullable

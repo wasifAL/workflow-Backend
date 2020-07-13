@@ -18,7 +18,6 @@ import javax.validation.constraints.NotEmpty;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Builder
 @Table(name = "users")
 public class User extends BaseEntity<Long> {
 

@@ -15,7 +15,6 @@ import javax.persistence.MapsId;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Builder
 public class StageAction extends BaseEntity<Long> {
     private String comment;
 
