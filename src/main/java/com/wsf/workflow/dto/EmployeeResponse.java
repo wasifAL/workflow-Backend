@@ -3,6 +3,7 @@ package com.wsf.workflow.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @AllArgsConstructor
@@ -16,9 +17,9 @@ public class EmployeeResponse {
     private String address;
     private String mobile;
     private String designation;
-    private byte[] picture;
+    private MultipartFile picture;
     private String ppMimeType;
-    private byte[] signature;
+    private MultipartFile signature;
     private String signatureMimeType;
     private String role = "EMPLOYEE";
 }
