@@ -18,14 +18,19 @@ public class StagesController {
 
     private final StagesService stagesService;
 
+
     @PostMapping
     public ResponseEntity createStage(@RequestBody StagesDTO stagesDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(stagesService.save(stagesDTO));
     }
 
     @GetMapping
-    public ResponseEntity<List<StagesDTO>> getAllStages(){
+    public ResponseEntity<List<StagesDTO>> getAllStages() {
         return ResponseEntity.status(HttpStatus.OK).body(stagesService.getAll());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<StagesDTO> getStageByID(@PathVariable("id") Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(stagesService.getStageByID(id));
+    }
 }
