@@ -1,5 +1,7 @@
 package com.wsf.workflow.controller;
 
+import com.wsf.workflow.dto.AuthenticationDTO;
+import com.wsf.workflow.dto.LoginDTO;
 import com.wsf.workflow.dto.RegistrationDTO;
 import com.wsf.workflow.service.AuthService;
 import lombok.AllArgsConstructor;
@@ -21,5 +23,10 @@ public class AuthController {
     public ResponseEntity<String> register(@RequestBody RegistrationDTO registrationDTO) {
         authService.register(registrationDTO);
         return new ResponseEntity<>("User registration Successful", HttpStatus.OK);
+    }
+
+    @PostMapping("/login")
+    public AuthenticationDTO login(@RequestBody LoginDTO loginDTO){
+        return authService.login(loginDTO);
     }
 }
