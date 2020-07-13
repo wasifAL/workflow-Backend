@@ -1,6 +1,6 @@
 package com.wsf.workflow.controller;
 
-import com.wsf.workflow.dto.AuthenticationDTO;
+import com.wsf.workflow.dto.AuthDTO;
 import com.wsf.workflow.dto.LoginDTO;
 import com.wsf.workflow.dto.RegistrationDTO;
 import com.wsf.workflow.service.AuthService;
@@ -26,7 +26,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public AuthenticationDTO login(@RequestBody LoginDTO loginDTO){
+    public AuthDTO login(@RequestBody LoginDTO loginDTO){
         return authService.login(loginDTO);
     }
 }

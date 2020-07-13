@@ -1,6 +1,6 @@
 package com.wsf.workflow.service;
 
-import com.wsf.workflow.dto.AuthenticationDTO;
+import com.wsf.workflow.dto.AuthDTO;
 import com.wsf.workflow.dto.LoginDTO;
 import com.wsf.workflow.dto.RegistrationDTO;
 import com.wsf.workflow.entity.User;
@@ -19,7 +19,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @AllArgsConstructor
@@ -59,10 +59,12 @@ public class AuthService {
         }
     }
 
-    public AuthenticationDTO login(LoginDTO loginDTO) {
+    public AuthDTO login(LoginDTO loginDTO) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), loginDTO.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtProvider.generateToken(authentication);
-        return new AuthenticationDTO(token, loginDTO.getUsername());
+//        String role = getRoleFromAuthentication(authentication);
+        return new AuthDTO(token, loginDTO.getUsername());
     }
+
 }
