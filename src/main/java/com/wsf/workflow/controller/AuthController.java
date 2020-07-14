@@ -28,11 +28,11 @@ public class AuthController {
         return new ResponseEntity<>("User registration Successful", HttpStatus.OK);
     }
 
-    @PostMapping("/checkPost")
+    @PostMapping("/checkpost")
     public ResponseEntity<String> checkPost() {
         return new ResponseEntity<>("POST Request Successfull at :"+ Instant.now(), HttpStatus.OK);
     }
-    @GetMapping("/checkGet")
+    @GetMapping("/checkget")
     public ResponseEntity<String> checkGet() {
         return new ResponseEntity<>("GET Request Successfull at :"+ Instant.now(), HttpStatus.OK);
     }
