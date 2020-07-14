@@ -9,12 +9,10 @@ import com.wsf.workflow.service.RefreshTokenService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.Instant;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -28,6 +26,15 @@ public class AuthController {
     public ResponseEntity<String> register(@RequestBody RegistrationResponse registrationResponse) {
         authService.register(registrationResponse);
         return new ResponseEntity<>("User registration Successful", HttpStatus.OK);
+    }
+
+    @PostMapping("/checkPost")
+    public ResponseEntity<String> checkPost() {
+        return new ResponseEntity<>("POST Request Successfull at :"+ Instant.now(), HttpStatus.OK);
+    }
+    @GetMapping("/checkGet")
+    public ResponseEntity<String> checkGet() {
+        return new ResponseEntity<>("GET Request Successfull at :"+ Instant.now(), HttpStatus.OK);
     }
 
     @PostMapping("/login")
