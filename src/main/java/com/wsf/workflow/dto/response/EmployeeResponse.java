@@ -1,4 +1,4 @@
-package com.wsf.workflow.dto;
+package com.wsf.workflow.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,7 +13,7 @@ public class EmployeeResponse {
     private String password;
     private String email;
     private Long empID; // employeeDetails entity id
-    private String fullName;
+    private String fullname;
     private String address;
     private String mobile;
     private String designation;
