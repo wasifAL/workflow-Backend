@@ -1,6 +1,6 @@
 package com.wsf.workflow.controller;
 
-import com.wsf.workflow.dto.StagesDTO;
+import com.wsf.workflow.dto.replica.StagesDTO;
 import com.wsf.workflow.service.StagesService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,6 +1,6 @@
 package com.wsf.workflow.service;
 
-import com.wsf.workflow.dto.StagesDTO;
+import com.wsf.workflow.dto.replica.StagesDTO;
 import com.wsf.workflow.entity.Stages;
 import com.wsf.workflow.exception.CustomException;
 import com.wsf.workflow.repository.StagesRepository;

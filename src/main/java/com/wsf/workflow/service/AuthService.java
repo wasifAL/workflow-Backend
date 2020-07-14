@@ -1,27 +1,29 @@
 package com.wsf.workflow.service;
 
-import com.wsf.workflow.dto.AuthResponse;
-import com.wsf.workflow.dto.LoginResponse;
-import com.wsf.workflow.dto.RegistrationResponse;
+import com.wsf.workflow.dto.request.RefreshTokenRequest;
+import com.wsf.workflow.dto.response.AuthResponse;
+import com.wsf.workflow.dto.response.LoginResponse;
+import com.wsf.workflow.dto.response.RegistrationResponse;
 import com.wsf.workflow.entity.User;
 import com.wsf.workflow.entity.UserInformation;
 import com.wsf.workflow.exception.CustomException;
 import com.wsf.workflow.repository.UserInformationRepository;
 import com.wsf.workflow.repository.UserRepository;
-import com.wsf.workflow.dto.CommonUtils;
 import com.wsf.workflow.security.JwtProvider;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.util.Collection;
 
 @Service
@@ -34,6 +36,7 @@ public class AuthService {
     private final UserInformationRepository userInformationRepository;
     private final AuthenticationManager authenticationManager;
     private final JwtProvider jwtProvider;
+    private final RefreshTokenService refreshTokenService;
 
     @Transactional
     public void register(RegistrationResponse registrationResponse) {
@@ -62,6 +65,14 @@ public class AuthService {
         }
     }
 
+    @Transactional(readOnly = true)
+    public User getCurrentUser() {
+        org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder.
+                getContext().getAuthentication().getPrincipal();
+        return userRepository.findByUsername(principal.getUsername())
+                .orElseThrow(() -> new UsernameNotFoundException("User name not found - " + principal.getUsername()));
+    }
+
     public AuthResponse login(LoginResponse loginResponse) {
         Authentication authentication =
                 authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginResponse.getUsername(),
@@ -69,8 +80,15 @@ public class AuthService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtProvider.generateToken(authentication);
         String role = getRoleFromAuthentication(authentication.getAuthorities());
-        return new AuthResponse(token, loginResponse.getUsername(),role);
+        return AuthResponse.builder()
+                .authToken(token)
+                .refreshToken(refreshTokenService.generateRefreshToken().getToken())
+                .expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()))
+                .username(loginResponse.getUsername())
+                .role(role)
+                .build();
     }
+
     private String getRoleFromAuthentication(Collection<? extends GrantedAuthority> grantedAuthorities) {
         StringBuilder role = new StringBuilder("");
         for (GrantedAuthority ga : grantedAuthorities) {
@@ -78,5 +96,20 @@ public class AuthService {
             if (role != null) break;
         }
         return role.toString();
+    }
+
+    public AuthResponse refreshToken(RefreshTokenRequest refreshTokenRequest) {
+        refreshTokenService.validateRefreshToken(refreshTokenRequest.getRefreshToken());
+        String token = jwtProvider.generateTokenWithUserName(refreshTokenRequest.getUsername());
+        return AuthResponse.builder()
+                .authToken(token)
+                .refreshToken(refreshTokenRequest.getRefreshToken())
+                .expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()))
+                .username(refreshTokenRequest.getUsername())
+                .build();
+    }
+    public boolean isLoggedIn() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return !(authentication instanceof AnonymousAuthenticationToken) && authentication.isAuthenticated();
     }
 }
