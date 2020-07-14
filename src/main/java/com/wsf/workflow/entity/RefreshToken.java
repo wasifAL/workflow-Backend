@@ -1,5 +1,6 @@
 package com.wsf.workflow.entity;
 
+import com.wsf.workflow.entity.common.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,7 @@ import java.time.Instant;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class RefreshToken {
+public class RefreshToken extends BaseEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
