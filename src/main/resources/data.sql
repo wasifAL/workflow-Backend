@@ -22,5 +22,5 @@ VALUES (
            false,
            true
        );
-
+INSERT INTO public.employee_details (id, created_at, created_by, is_active, is_deleted, updated_at, updated_by, address, designation, full_name, mobile, picture, pp_mime_type, signature, signature_mime_type, user_id) VALUES (2, null, null, true, false, null, null, null, 'ADMINISTRATOR', 'ROOT', null, null, null, null, null, 1);
 --user name is root and password is admin
