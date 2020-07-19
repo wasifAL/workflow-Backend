@@ -1,12 +1,14 @@
 package com.wsf.workflow.controller;
 
 
+import com.wsf.workflow.dto.replica.UserDTO;
 import com.wsf.workflow.service.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
@@ -14,15 +16,25 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     private final UserService userService;
 
-  /*  @PostMapping
-    public void createStageActor() {
+    @PostMapping()
+    public ResponseEntity createUser(@RequestBody UserDTO userDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(userDTO));
     }
 
-    @GetMapping
-    public void getAll() {
+    @GetMapping("/user")
+    public ResponseEntity<List<UserDTO>> getAllUser() {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getAllUser());
     }
 
-    @GetMapping
-    public void getStageActorByID() {
-    }*/
+    @GetMapping("/emp")
+    public ResponseEntity<List<UserDTO>> getAllEmp() {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getAllemp());
+    }
+
+    //    get by user ID
+    @GetMapping("/user/{id}")
+    public ResponseEntity<UserDTO> getUserByID(@PathVariable("id") Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getUserByID(id));
+    }
+
 }
