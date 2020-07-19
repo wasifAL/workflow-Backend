@@ -26,7 +26,7 @@ public class StagesService {
         try {
             repository.save(stages);
             log.info("Stage Created Successfully");
-            stagesDTO.setID(stages.getId());
+            stagesDTO.setId(stages.getId());
         } catch (Exception e) {
             throw new CustomException("Couldn't Create Stage");
         }
@@ -52,11 +52,11 @@ public class StagesService {
         stage.setName(stagesDTO.getName());
         stage.setDescription(stagesDTO.getDescription());
         stage.setSeq(stagesDTO.getSeq());
-        if(stagesDTO.getNextStageID()!=null && stagesDTO.getNextStageID()>0){
-            stage.setNextStage(repository.getOne(stagesDTO.getNextStageID()));
+        if(stagesDTO.getNextStageId()!=null && stagesDTO.getNextStageId()>0){
+            stage.setNextStage(repository.getOne(stagesDTO.getNextStageId()));
         }
-        if(stagesDTO.getPrevStageID()!=null && stagesDTO.getPrevStageID()>0){
-            stage.setPrevStage(repository.getOne(stagesDTO.getPrevStageID()));
+        if(stagesDTO.getPrevStageId()!=null && stagesDTO.getPrevStageId()>0){
+            stage.setPrevStage(repository.getOne(stagesDTO.getPrevStageId()));
         }
         stage.setOnCreate(1L);
         return stage;
@@ -64,16 +64,16 @@ public class StagesService {
 
     public StagesDTO mapToDto(Stages stages) {
         StagesDTO stagesDTO = new StagesDTO();
-        stagesDTO.setID(stages.getId());
+        stagesDTO.setId(stages.getId());
         stagesDTO.setName(stages.getName());
         stagesDTO.setDescription(stages.getDescription());
         stagesDTO.setSeq(stages.getSeq());
         if(stages.getNextStage() != null){
-            stagesDTO.setNextStageID(stages.getNextStage().getId());
+            stagesDTO.setNextStageId(stages.getNextStage().getId());
             stagesDTO.setNextStageName(stages.getNextStage().getName());
         }
         if(stages.getPrevStage() != null){
-            stagesDTO.setPrevStageID(stages.getPrevStage().getId());
+            stagesDTO.setPrevStageId(stages.getPrevStage().getId());
             stagesDTO.setPrevStageName(stages.getPrevStage().getName());
         }
 

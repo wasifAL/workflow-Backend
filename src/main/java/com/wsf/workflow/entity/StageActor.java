@@ -2,7 +2,6 @@ package com.wsf.workflow.entity;
 
 import com.wsf.workflow.entity.common.BaseEntity;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.lang.Nullable;
@@ -10,7 +9,6 @@ import org.springframework.lang.Nullable;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 
 @Data
 @AllArgsConstructor
