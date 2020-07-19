@@ -16,8 +16,14 @@ import java.util.List;
 @Entity
 public class Application extends BaseEntity<Long> {
 
-    @Nullable
-    private Double fund;
+    private Double reqfund;
+    private Double appfund;
+    private Double yearlyIncome;
+
+//    current job details
+    private String officeName;
+    private String officeAddress;
+    private String designation;
 
     @Nullable
     @ManyToOne(fetch = FetchType.LAZY)

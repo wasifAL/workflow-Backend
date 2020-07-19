@@ -8,10 +8,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ApplicationDTO{
-    private Double fund;
-//    private StageActorDTO stageActor;
-//    private UserInformationDTO applicant;
-//    private List<StageActionDTO> stageActionList;
-//    private List<ApplicationAttachmentDTO> applicationAttachmentList;
+    private Double reqfund;
+    private Double appfund;
+    private Double yearlyIncome;
+
+    //    current job details
+    private String officeName;
+    private String officeAddress;
+    private String designation;
 
 }

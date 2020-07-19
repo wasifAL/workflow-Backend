@@ -5,7 +5,9 @@ import com.wsf.workflow.dto.replica.StagesDTO;
 import com.wsf.workflow.entity.StageActor;
 import com.wsf.workflow.entity.Stages;
 import com.wsf.workflow.exception.CustomException;
+import com.wsf.workflow.repository.EmployeeDetailsRepository;
 import com.wsf.workflow.repository.StageActorRepository;
+import com.wsf.workflow.repository.StagesRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,8 @@ import static java.util.stream.Collectors.toList;
 @AllArgsConstructor
 public class StageActorService {
     private final StageActorRepository repository;
+    private final EmployeeDetailsRepository employeeDetailsRepository;
+    private final StagesRepository stagesRepository;
 
 
     @Transactional
@@ -49,9 +53,17 @@ public class StageActorService {
         return mapToDto(repository.getOne(id));
     }
 
+    @Transactional(readOnly = true)
     public StageActor mapToEntity(StageActorDTO stageActorDTO) {
         StageActor stageActor = new StageActor();
         stageActor.setName(stageActorDTO.getName());
+        stageActor.setDescription(stageActorDTO.getDescription());
+        if (stageActorDTO.getEmployeeId() != null) {
+            stageActor.setEmployeeDetails(employeeDetailsRepository.getOne(stageActorDTO.getEmployeeId()));
+        }
+        if (stageActorDTO.getStageId() != null) {
+            stageActor.setStage(stagesRepository.getOne(stageActorDTO.getStageId()));
+        }
 
         stageActor.setOnCreate(1L);
         return stageActor;
@@ -61,6 +73,15 @@ public class StageActorService {
         StageActorDTO stageActorDTO = new StageActorDTO();
         stageActorDTO.setId(stageActor.getId());
         stageActorDTO.setName(stageActor.getName());
+        stageActorDTO.setDescription(stageActor.getDescription());
+        if (stageActor.getEmployeeDetails() != null) {
+            stageActorDTO.setEmployeeId(stageActor.getEmployeeDetails().getId());
+            stageActorDTO.setEmployeeDetails(stageActor.getEmployeeDetails().getFullName() + " (" + stageActor.getEmployeeDetails().getDesignation() + ")");
+        }
+        if (stageActor.getStage() != null) {
+            stageActorDTO.setStageId(stageActor.getStage().getId());
+            stageActorDTO.setStageName(stageActor.getStage().getName());
+        }
         return stageActorDTO;
     }
 }
