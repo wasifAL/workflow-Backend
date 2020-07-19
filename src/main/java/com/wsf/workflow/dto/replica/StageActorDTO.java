@@ -1,6 +1,7 @@
 package com.wsf.workflow.dto.replica;
 
-import com.wsf.workflow.entity.Stages;
+//represents StageActorPayload
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,8 +10,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StageActorDTO {
+    private Long id;
     private String name;
     private String description;
-    private Stages stage;
-//    private EmployeeDetailsDTO employeeDetails;
+    private Long stageId;
+    private String stageName;
+    private Long employeeId;
+    private String employeeDetails;
 }
