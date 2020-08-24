@@ -38,7 +38,7 @@ public class UserService implements UserDetailsService {
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) {
-        Optional<User> userOptional = repository.findByUsername(username);
+        Optional<User> userOptional = Optional.ofNullable(repository.findByUsername(username));
         User user = userOptional
                 .orElseThrow(() -> new UsernameNotFoundException("No user " +
                         "Found by username : " + username));
